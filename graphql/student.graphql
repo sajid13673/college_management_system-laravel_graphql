@@ -1,0 +1,60 @@
+extend type Query{
+    Students: [Student!] @all
+    Student(id: ID @eq): Student @find
+}
+
+type Student{
+    id: ID
+    name: String
+    email: String
+    address: String
+    phone_number: String
+    date_of_birth: String
+    classrooms: [Classroom!] @belongsToMany
+    user: User @belongsTo
+}
+
+extend type Mutation{
+    createStudent( input: CreateStudentInput @spread ): Student! @create
+    updateStudent( input: UpdateStudentInput @spread): Student! @update
+    deleteStudent(id: ID! @whereKey): Student @delete
+}
+
+input CreateStudentInput {
+    name: String!
+    phone_number: String!
+    address: String!
+    date_of_birth: String
+    classrooms: CreateClassroomBelongsToMany 
+    user: CreateUserBelongsTo
+}
+
+input CreateUserBelongsTo {
+    create: CreateUserInput
+}
+
+input CreateUserInput {
+    email: String!
+    password: String! @hash
+    role: String
+}
+
+input UpdateStudentInput {
+    id: ID!
+    name: String
+    address: String!
+    phone_number: String
+    date_of_birth: String
+    classrooms: CreateClassroomBelongsToMany 
+}
+
+input CreateClassroomBelongsToMany {
+    create: [CreateClassroomInput!]
+    connect: [ID!]
+    sync: [ID!]
+}
+
+input CreateClassroomInput {
+    name: String!
+    year: String!
+}

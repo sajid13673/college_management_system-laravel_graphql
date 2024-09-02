@@ -1,0 +1,5 @@
+#import classroom.graphql
+#import teacher.graphql
+#import student.graphql
+#import auth.graphql
+#import user.graphql

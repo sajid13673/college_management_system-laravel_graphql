@@ -1,0 +1,8 @@
+extend type Mutation{
+    deleteUser(id: ID!): String # @canAccess(requiredRole: ["admin"])
+}
+type User{
+    id: ID,
+    name: String,
+    email: String,
+}

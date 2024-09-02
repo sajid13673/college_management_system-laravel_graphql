@@ -1,0 +1,21 @@
+extend type Query{
+    classrooms: [Classroom!] @all
+    classroom(id: ID @eq): Classroom @find
+}
+
+type Classroom{
+    id: ID
+    name: String
+    year: String
+    students: [Student!]! @belongsToMany 
+    teachers: [Teacher] @belongsToMany
+}
+
+extend type Mutation{
+    createClassroom(
+        name: String!
+        year: String!
+    ): Classroom @create
+    updateClassroom(id: ID!, name: String, year: String): Classroom! @update
+    deleteClassroom(id: ID! @whereKey): Classroom @delete
+}

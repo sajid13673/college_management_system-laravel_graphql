@@ -1,0 +1,36 @@
+extend type Query{
+    Teachers: [Teacher!] @all # @canAccess(requiredRole: ["admin", "teacher"])
+    Teacher(id: ID @eq): Teacher @find
+}
+
+type Teacher{
+    id: ID
+    name: String
+    email: String
+    address: String
+    phone_number: String
+    user: User @belongsTo
+    classrooms: [Classroom!] @belongsToMany
+}
+
+extend type Mutation{
+    createTeacher(input: CreateTeacherInput @spread): Teacher! @create
+    updateTeacher(input: UpdateTeacherInput @spread): Teacher! @update
+    deleteTeacher(input: DeleteTeacherInput @spread): Teacher
+}
+
+input CreateTeacherInput {
+    name: String!
+    phone_number: String!
+    address: String!
+    user: CreateUserBelongsTo
+    classrooms: CreateClassroomBelongsToMany
+}
+
+input UpdateTeacherInput {
+    id: ID!
+    name: String!
+    phone_number: String!
+    address: String!
+    classrooms: CreateClassroomBelongsToMany
+}
