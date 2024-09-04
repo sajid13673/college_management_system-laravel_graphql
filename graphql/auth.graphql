@@ -1,5 +1,6 @@
 extend type Mutation{
     login(email: String!, password: String!, device_name: String!): Auth
+    logout: String! @guard
 }
 type Auth{
     token: String

@@ -1,6 +1,6 @@
 extend type Query{
     Teachers: [Teacher!] @all # @canAccess(requiredRole: ["admin", "teacher"])
-    Teacher(id: ID @eq): Teacher @find
+    Teacher(id: ID @eq): Teacher @find @guard
 }
 
 type Teacher{
