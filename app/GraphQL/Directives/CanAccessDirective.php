@@ -1,12 +1,14 @@
 <?php
 namespace App\GraphQL\Directives;
-
+use App\Exceptions\CustomException;
+use Exception;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Exceptions\DefinitionException;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 final class CanAccessDirective extends BaseDirective implements FieldMiddleware
 {
@@ -39,7 +41,10 @@ GRAPHQL;
                 // The user's role has to match have the required role given in the array
                 || !in_array($user->role, $requiredRole)
             ) {
-                return null;
+                // return null;
+                throw new CustomException('Unauthenticated',
+                'This role does not have the access for this request.'
+            );
             }
 
             return $resolver($root, $args, $context, $resolveInfo);
