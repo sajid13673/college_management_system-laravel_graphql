@@ -1,6 +1,6 @@
 extend type Query{
-    Teachers: [Teacher!] @all # @canAccess(requiredRole: ["admin", "teacher"])
-    Teacher(id: ID @eq): Teacher @find @guard
+    Teachers: [Teacher!] @all @canAccess(requiredRole: ["admin"])
+    Teacher(id: ID @eq): Teacher @find @canAccess(requiredRole: ["admin"])
 }
 
 type Teacher{
@@ -14,9 +14,9 @@ type Teacher{
 }
 
 extend type Mutation{
-    createTeacher(input: CreateTeacherInput @spread): Teacher! @create
-    updateTeacher(input: UpdateTeacherInput @spread): Teacher! @update
-    deleteTeacher(input: DeleteTeacherInput @spread): Teacher
+    createTeacher(input: CreateTeacherInput @spread): Teacher! @create @canAccess(requiredRole: ["admin"])
+    updateTeacher(input: UpdateTeacherInput @spread): Teacher! @update @canAccess(requiredRole: ["admin"])
+    deleteTeacher(input: DeleteTeacherInput @spread): Teacher @canAccess(requiredRole: ["admin"])
 }
 
 input CreateTeacherInput {

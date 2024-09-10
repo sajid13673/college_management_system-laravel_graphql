@@ -1,6 +1,6 @@
 extend type Query{
-    classrooms: [Classroom!] @all
-    classroom(id: ID @eq): Classroom @find
+    classrooms: [Classroom!] @all @canAccess(requiredRole: ["admin"])
+    classroom(id: ID @eq): Classroom @find @canAccess(requiredRole: ["admin"])
 }
 
 type Classroom{
@@ -15,7 +15,7 @@ extend type Mutation{
     createClassroom(
         name: String!
         year: String!
-    ): Classroom @create
-    updateClassroom(id: ID!, name: String, year: String): Classroom! @update
-    deleteClassroom(id: ID! @whereKey): Classroom @delete
+    ): Classroom @create @canAccess(requiredRole: ["admin"])
+    updateClassroom(id: ID!, name: String, year: String): Classroom! @update @canAccess(requiredRole: ["admin"])
+    deleteClassroom(id: ID! @whereKey): Classroom @delete @canAccess(requiredRole: ["admin"])
 }

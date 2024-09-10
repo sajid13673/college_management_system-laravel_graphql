@@ -1,6 +1,6 @@
 extend type Query{
-    Students: [Student!] @all
-    Student(id: ID @eq): Student @find
+    Students: [Student!] @all @canAccess(requiredRole: ["admin", "teacher"])
+    Student(id: ID @eq): Student @find @canAccess(requiredRole: ["admin"])
 }
 
 type Student{
@@ -15,9 +15,9 @@ type Student{
 }
 
 extend type Mutation{
-    createStudent( input: CreateStudentInput @spread ): Student! @create
-    updateStudent( input: UpdateStudentInput @spread): Student! @update
-    deleteStudent(id: ID! @whereKey): Student @delete
+    createStudent( input: CreateStudentInput @spread ): Student! @create @canAccess(requiredRole: ["admin"])
+    updateStudent( input: UpdateStudentInput @spread): Student! @update @canAccess(requiredRole: ["admin"])
+    deleteStudent(id: ID! @whereKey): Student @delete @canAccess(requiredRole: ["admin"])
 }
 
 input CreateStudentInput {
