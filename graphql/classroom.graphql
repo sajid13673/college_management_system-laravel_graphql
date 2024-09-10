@@ -1,5 +1,5 @@
 extend type Query{
-    classrooms: [Classroom!] @all @canAccess(requiredRole: ["admin"])
+    classrooms: [Classroom!] @paginate @canAccess(requiredRole: ["admin"]) 
     classroom(id: ID @eq): Classroom @find @canAccess(requiredRole: ["admin"])
 }
 

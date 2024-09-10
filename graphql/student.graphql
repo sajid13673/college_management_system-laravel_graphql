@@ -1,5 +1,5 @@
 extend type Query{
-    Students: [Student!] @all @canAccess(requiredRole: ["admin", "teacher"])
+    Students: [Student!] @paginate @canAccess(requiredRole: ["admin", "teacher"])
     Student(id: ID @eq): Student @find @canAccess(requiredRole: ["admin"])
 }
 
