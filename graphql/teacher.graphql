@@ -20,17 +20,17 @@ extend type Mutation{
 }
 
 input CreateTeacherInput {
-    name: String!
-    phone_number: String!
-    address: String!
+    name: String! @rules(apply: ["required"])
+    phone_number: String! @rules(apply: ["required", "numeric", "digits_between:10,13", "unique:teachers,phone_number"])
+    address: String! @rules(apply: ["required"])
     user: CreateUserBelongsTo
     classrooms: CreateClassroomBelongsToMany
 }
 
-input UpdateTeacherInput {
+input UpdateTeacherInput @validator{
     id: ID!
     name: String!
-    phone_number: String!
+    phone_number: String! 
     address: String!
     classrooms: CreateClassroomBelongsToMany
 }

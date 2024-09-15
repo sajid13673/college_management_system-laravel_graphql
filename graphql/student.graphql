@@ -21,12 +21,12 @@ extend type Mutation{
 }
 
 input CreateStudentInput {
-    name: String!
-    phone_number: String!
-    address: String!
-    date_of_birth: String
+    name: String! @rules(apply: ["required"])
+    phone_number: String! @rules(apply: ["required", "numeric", "digits_between:10,13", "unique:students,phone_number"])
+    address: String! @rules(apply: ["required"])
+    date_of_birth: String @rules(apply: ["required", "date"])
     classrooms: CreateClassroomBelongsToMany 
-    user: CreateUserBelongsTo
+    user: CreateUserBelongsTo 
 }
 
 input CreateUserBelongsTo {
@@ -34,15 +34,15 @@ input CreateUserBelongsTo {
 }
 
 input CreateUserInput {
-    email: String!
-    password: String! @hash
+    email: String! @rules(apply: ["required", "email", "unique:users,email"])
+    password: String! @hash @rules(apply: ["required", "min:8"])
     role: String
 }
 
-input UpdateStudentInput {
+input UpdateStudentInput @validator {
     id: ID!
     name: String
-    address: String!
+    address: String
     phone_number: String
     date_of_birth: String
     classrooms: CreateClassroomBelongsToMany 
@@ -52,9 +52,4 @@ input CreateClassroomBelongsToMany {
     create: [CreateClassroomInput!]
     connect: [ID!]
     sync: [ID!]
-}
-
-input CreateClassroomInput {
-    name: String!
-    year: String!
 }
