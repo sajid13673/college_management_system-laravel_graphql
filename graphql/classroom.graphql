@@ -1,6 +1,7 @@
 extend type Query{
     classrooms: [Classroom!] @paginate @canAccess(requiredRole: ["admin"]) 
     classroom(id: ID @eq): Classroom @find @canAccess(requiredRole: ["admin"])
+    allClassrooms: [Classroom!] @canAccess(requiredRole: ["admin"])
 }
 
 type Classroom{
@@ -12,10 +13,16 @@ type Classroom{
 }
 
 extend type Mutation{
-    createClassroom(
-        name: String!
-        year: String!
-    ): Classroom @create @canAccess(requiredRole: ["admin"])
-    updateClassroom(id: ID!, name: String, year: String): Classroom! @update @canAccess(requiredRole: ["admin"])
+    createClassroom( input: CreateClassroomInput @spread): Classroom @create @canAccess(requiredRole: ["admin"])
+    updateClassroom( input: UpdateClassroomInput @spread): Classroom! @update @canAccess(requiredRole: ["admin"])
     deleteClassroom(id: ID! @whereKey): Classroom @delete @canAccess(requiredRole: ["admin"])
+}
+input CreateClassroomInput {
+    name: String! @rules(apply: ["required", "unique:classrooms,name"])
+    year: String! @rules(apply: ["required", "numeric", "digits:4"])
+}
+input UpdateClassroomInput @validator{
+    id: ID!  
+    name: String
+    year: String  
 }
