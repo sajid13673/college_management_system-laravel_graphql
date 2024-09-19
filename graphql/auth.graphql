@@ -1,3 +1,6 @@
+extend type Query{
+    profile: User! @auth @guard
+}
 extend type Mutation{
     login(email: String! @rules(apply: ["email", "required"]), password: String! @rules(apply: ["required"]), device_name: String!): Auth
     logout: String! @guard
@@ -5,7 +8,4 @@ extend type Mutation{
 type Auth{
     token: String
     role: String
-}
-extend type Query{
-    me: User! @auth @guard
 }
