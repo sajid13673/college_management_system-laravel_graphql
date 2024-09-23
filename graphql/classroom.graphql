@@ -1,6 +1,6 @@
 extend type Query{
     classrooms: [Classroom!] @paginate @canAccess(requiredRole: ["admin"]) 
-    classroom(id: ID @eq): Classroom @find @canAccess(requiredRole: ["admin"])
+    classroom(id: ID @eq): Classroom @find @guard
     allClassrooms: [Classroom!] @canAccess(requiredRole: ["admin"])
 }
 
@@ -10,6 +10,7 @@ type Classroom{
     year: String
     students: [Student!]! @belongsToMany 
     teachers: [Teacher] @belongsToMany
+    classMaterials: [ClassMaterial] @hasMany
 }
 
 extend type Mutation{

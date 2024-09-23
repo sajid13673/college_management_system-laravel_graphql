@@ -16,7 +16,6 @@ type Teacher{
 extend type Mutation{
     createTeacher(input: CreateTeacherInput @spread): Teacher! @create @canAccess(requiredRole: ["admin"])
     updateTeacher(input: UpdateTeacherInput @spread): Teacher! @update @canAccess(requiredRole: ["admin"])
-    deleteTeacher(input: DeleteTeacherInput @spread): Teacher @canAccess(requiredRole: ["admin"])
 }
 
 input CreateTeacherInput {

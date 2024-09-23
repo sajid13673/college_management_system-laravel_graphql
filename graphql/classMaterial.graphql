@@ -1,0 +1,13 @@
+extend type Mutation {
+    createClassMaterial(name: String!, file: Upload!, description: String, classroom_id: ID!): ClassMaterial @canAccess(requiredRole: ["teacher"])
+}
+type Test {
+    name: String
+    path: String
+    size: String
+}
+type ClassMaterial {
+    name: String
+    description: String
+    file: File @hasOne
+}

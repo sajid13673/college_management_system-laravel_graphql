@@ -3,3 +3,7 @@
 #import student.graphql
 #import auth.graphql
 #import user.graphql
+#import classMaterial.graphql
+#import file.graphql
+scalar Upload
+  @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
