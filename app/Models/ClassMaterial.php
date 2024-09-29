@@ -24,4 +24,9 @@ class ClassMaterial extends Model
     {
         return $this->hasOne(File::class);
     }
+    public function delete(){
+        $this->file->delete();
+        parent::delete();
+        return $this;
+    }
 }

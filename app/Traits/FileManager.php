@@ -23,9 +23,9 @@ trait FileManager
             ];
         }
     }
-    public function deleteFile($path, $fileName)
+    public function deleteFile($path)
     {
-        Storage::delete($path . $fileName);
+        Storage::delete($path);
     }
     private function getFileSize($file)
     {

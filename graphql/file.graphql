@@ -1,4 +1,5 @@
 type File {
+    id: ID
     name: String
     path: String
     size: String
