@@ -23,4 +23,8 @@ class Classroom extends Model
     {
         return $this->hasMany(ClassMaterial::class);
     }
+    public function classNotes() :HasMany
+    {
+        return $this->hasMany(ClassNote::class);
+    }
 }

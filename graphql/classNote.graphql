@@ -1,0 +1,14 @@
+type ClassNote{
+    id: ID
+    title: String
+    description: String
+}
+extend type Mutation{
+    createClassNote(title: String!, description: String!, classroom_id: ID!): ClassNote! @create @canAccess(requiredRole: ["teacher"])
+    updateClassNote(id: ID!, title: String, description: String): ClassNote! @update @canAccess(requiredRole: ["teacher"])
+    deleteClassNote(id: ID! @whereKey): ClassNote! @delete @canAccess(requiredRole: ["teacher"])
+}
+extend type Query {
+    # classNotes(classroom_id: ID!): [ClassNote!]! @canAccess(requiredRole: ["teacher"])
+    classNote(id: ID! @eq): ClassNote! @find @canAccess(requiredRole: ["teacher", "user"])
+}
