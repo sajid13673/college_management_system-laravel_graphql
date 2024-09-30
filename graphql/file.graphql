@@ -3,4 +3,5 @@ type File {
     name: String
     path: String
     size: String
+    link: String
 }

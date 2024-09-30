@@ -15,7 +15,7 @@ final readonly class CreateClassMaterial
         $classMaterial = new ClassMaterial();
         $classMaterial = $classMaterial->create($args);
         $savedFile = $this->saveFile($args['file'], 'classMaterial');
-        $classMaterial->file()->create(['name'=> $savedFile['name'], 'size' => $savedFile['size'], 'path' => $savedFile['path']]);
+        $classMaterial->file()->create(['name'=> $savedFile['name'], 'size' => $savedFile['size'], 'path' => $savedFile['path'], 'link' => $savedFile['link']]);
         return $classMaterial;
     }
 }

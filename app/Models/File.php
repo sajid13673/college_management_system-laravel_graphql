@@ -16,6 +16,7 @@ class File extends Model
         'size',
         'path',
         'class_material_id',
+        'link',
     ];
 
     public function classMaterial() :BelongsTo

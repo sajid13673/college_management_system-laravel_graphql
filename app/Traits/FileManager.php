@@ -14,12 +14,14 @@ trait FileManager
             $fileName   = $currentTime . ' ' . $file->getClientOriginalName();
             $path = str_replace(" ", "_", $path);
             $fileName = str_replace(" ", "_", $fileName);
-            $path = Storage::putFileAs($path, $file, $fileName);
+            $deletablePath = Storage::putFileAs('public/'.$path, $file, $fileName);
+            $link = asset("storage/".$path.'/'.$fileName);
             $size = $this->getFileSize($file);
             return [
                 'name' => $fileName,
                 'size' => $size,
-                'path' => $path,
+                'path' => $deletablePath,
+                'link' => $link,
             ];
         }
     }
